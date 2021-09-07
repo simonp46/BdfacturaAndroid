@@ -25,6 +25,11 @@ public class database extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-
+        db.execSQL("DROP TABLE cliente");
+        db.execSQL(tblcliente);
+        db.execSQL("DROP TABLE factura");
+        db.execSQL(tblfactura);
+        db.execSQL("DROP TABLE abono");
+        db.execSQL(tblabono);
     }
 }
