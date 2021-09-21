@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     // Instanciar objetos
-    EditText cedulal,contrasl;
+    EditText usuariol,contrasl;
     TextView registrarseaquil;
     Button iniciarsesionl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        cedulal = findViewById(R.id.etCedR);
+        usuariol = findViewById(R.id.etEmail);
         contrasl = findViewById(R.id.etContraR);
         registrarseaquil = findViewById(R.id.tvregist);
         iniciarsesionl = findViewById(R.id.btnini);
@@ -35,25 +35,25 @@ public class MainActivity extends AppCompatActivity {
         iniciarsesionl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mcedula = cedulal.getText().toString().trim();
+                String musuario = usuariol.getText().toString().trim();
                 String mcontras = contrasl.getText().toString().trim();
-                IniciarSesion(mcedula,mcontras);
+                IniciarSesion(musuario,mcontras);
 
             }
         });
 
     }
-    private void IniciarSesion(String mcedula,String mcontras) {
+    private void IniciarSesion(String musuario,String mcontras) {
         database ohelper = new database(getApplicationContext(),"bdfactura", null,1);
         SQLiteDatabase dbread = ohelper.getReadableDatabase();
-        String Sqlquery = "select cedula,nombre From Cliente Where cedula = '" +mcedula+"' and contras = '"+mcontras+"'";
+        String Sqlquery = "select cedula,nombres From Cliente Where email = '" +musuario+"' and contras = '"+mcontras+"'";
         //tablacursor ContentValues
         Cursor ccliente = dbread.rawQuery(Sqlquery,null);
         if (ccliente.moveToFirst()){
-            Toast.makeText(getApplicationContext(), "Cedula y contraseña encontradas!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Email y contraseña encontradas!!", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Cedula y/o contraseña incorrectos!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Email y/o contraseña incorrectos!!", Toast.LENGTH_SHORT).show();
         }
     }
 }
